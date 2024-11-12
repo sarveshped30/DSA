@@ -78,4 +78,40 @@ public class StringQuestions {
 
         return ans.toString();
     }
+
+    public static String longestCommonPrefix(String[] strs) {
+        //Edge case
+        if(strs.length == 1) return strs[0];
+
+        String prefix = strs[0];
+        int minIndex = prefix.length() - 1;
+        int index = -1;
+
+        for(String str : strs) {
+            int l1 = 0;
+            int l2 = 0;
+
+            while(l1 < prefix.length() && l2 < str.length()) {
+                if(prefix.charAt(l1) == str.charAt(l2)) {
+                    l1++;
+                    l2++;
+                    index++;
+                } else {
+                    break;
+                }
+            }
+
+            if(index == -1) {
+                return "";
+            } else {
+                minIndex = Math.min(index, minIndex);
+                if(minIndex < prefix.length()) {    //End index should be less than length
+                    prefix = prefix.substring(0, minIndex + 1);
+                }
+                index = -1;
+            }
+        }
+
+        return prefix;
+    }
 }

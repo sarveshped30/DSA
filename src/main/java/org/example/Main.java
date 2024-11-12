@@ -147,6 +147,11 @@ public class Main {
         System.out.println("eval small : " + evalSmall);
         System.out.println("eval caps : " + evalCaps);
         System.out.println("digit : " + digit);
+
+        /*String flower = "flower";
+        System.out.println(flower.substring(0, flower.length()));   // Does not throw out of bound exception because endIndex is exclusive because (n - 1 is valid index);
+        System.out.println(flower.substring(0, 7));        // Throw IndexOutOfBoundException if greater than length*/
+
     }
 
 }
