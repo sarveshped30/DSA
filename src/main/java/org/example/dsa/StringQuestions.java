@@ -1,5 +1,8 @@
 package org.example.dsa;
 
+import java.util.Map;
+import java.util.HashMap;
+
 public class StringQuestions {
 
     public static void main(String[] args) {
@@ -113,5 +116,70 @@ public class StringQuestions {
         }
 
         return prefix;
+    }
+
+    //Time Complexity = O(N)
+    //Space complexity = O(N)
+    public static boolean isIsomorphic(String s, String t) {
+        if(s.length() != t.length()) {
+            return false;
+        }
+
+        Map<Character, Character> maps = new HashMap<>();
+        Map<Character, Character> mapt = new HashMap<>();
+
+        for(int i = 0; i < s.length(); i++) {
+            char schar = s.charAt(i);
+            char tchar = t.charAt(i);
+
+            if(maps.containsKey(schar)) {
+                if(maps.get(schar) != tchar) {
+                    return false;
+                }
+                continue;
+            } else {
+                maps.put(schar, tchar);
+            }
+
+            if(mapt.containsKey(tchar)) {
+                if(mapt.get(tchar) != schar) {
+                    return false;
+                }
+            } else {
+                mapt.put(tchar, schar);
+            }
+
+        }
+
+        return true;
+    }
+
+    //Optimal isoMorphic solution
+    //Time complexity = O(N)
+    //Space complexity = O(1)
+    public static boolean isIsomorphicOptimal(String s, String t) {
+
+        if(s.length() != t.length()) {
+            return false;
+        }
+
+        //256 to cover all ASCII characters
+        int[] maps = new int[256];
+        int[] mapt = new int[256];
+
+        for(int i = 0; i < s.length(); i++) {
+            char c1 = s.charAt(i);
+            char c2 = t.charAt(i);
+
+            if(maps[c1] != mapt[c2]) {
+                return false;
+            }
+
+            maps[c1] = maps[c1]++;
+            mapt[c2] = mapt[c2]++;
+        }
+
+
+        return true;
     }
 }
