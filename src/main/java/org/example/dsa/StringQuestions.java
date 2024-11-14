@@ -1,7 +1,9 @@
 package org.example.dsa;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.PriorityQueue;
 
 public class StringQuestions {
 
@@ -12,8 +14,12 @@ public class StringQuestions {
         System.out.println(isPalindrome(s));
         System.out.println(isPalindromeWithoutRegex(s));*/
 
-        String word = "a good    example";
-        System.out.println(reverseWords(word));
+        /*String word = "a good    example";
+        System.out.println(reverseWords(word));*/
+
+        String word = "raaeaedere";
+        System.out.println(frequencySort(word));
+
     }
 
     public static boolean isPalindromeWithoutRegex(String s) {
@@ -179,7 +185,32 @@ public class StringQuestions {
             mapt[c2] = mapt[c2]++;
         }
 
-
         return true;
     }
+
+    public static String frequencySort(String s) {
+        // Step 1: Count frequency of each character
+        Map<Character, Integer> frequencyMap = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);
+        }
+
+        // Step 2: Use a max-heap to sort characters by frequency
+        PriorityQueue<Map.Entry<Character, Integer>> maxHeap =
+                new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+        maxHeap.addAll(frequencyMap.entrySet());
+
+        // Step 3: Build the result
+        StringBuilder result = new StringBuilder();
+        while (!maxHeap.isEmpty()) {
+            Map.Entry<Character, Integer> entry = maxHeap.poll();
+            char c = entry.getKey();
+            int frequency = entry.getValue();
+            for (int i = 0; i < frequency; i++) {
+                result.append(c);
+            }
+        }
+        return result.toString();
+    }
+
 }
