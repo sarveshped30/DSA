@@ -17,8 +17,11 @@ public class StringQuestions {
         /*String word = "a good    example";
         System.out.println(reverseWords(word));*/
 
-        String word = "raaeaedere";
-        System.out.println(frequencySort(word));
+        /*String word = "raaeaedere";
+        System.out.println(frequencySort(word));*/
+
+        String atoi = "+-12";
+        System.out.println(myAtoi(atoi));
 
     }
 
@@ -211,6 +214,46 @@ public class StringQuestions {
             }
         }
         return result.toString();
+    }
+
+    public static int myAtoi(String s) {
+        if (s == null || s.isEmpty()) {
+            return 0;
+        }
+
+        int index = 0, sign = 1, total = 0;
+        int n = s.length();
+
+        // Step 1: Ignore leading whitespaces
+        while (index < n && s.charAt(index) == ' ') {
+            index++;
+        }
+
+        // Step 2: Handle signs
+        if (index < n && (s.charAt(index) == '+' || s.charAt(index) == '-')) {
+            sign = (s.charAt(index) == '-') ? -1 : 1;
+            index++;
+        }
+
+        // Step 3: Convert digits to integer
+        while (index < n) {
+            char currentChar = s.charAt(index);
+            if (!Character.isDigit(currentChar)) {
+                break; // Stop at the first non-digit character
+            }
+
+            int digit = currentChar - '0';
+
+            // Step 4: Handle overflow
+            if (total > (Integer.MAX_VALUE - digit) / 10) {
+                return (sign == 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            }
+
+            total = total * 10 + digit;
+            index++;
+        }
+
+        return total * sign;
     }
 
 }
