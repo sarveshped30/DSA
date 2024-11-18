@@ -25,7 +25,8 @@ public class StringQuestions {
 
         //Count subStrings
         String s = "abc";
-        System.out.println(countSubstrings(s));
+        String e = "pqpqs";
+        System.out.println(countExactKSubString(e, 2));
 
     }
 
@@ -270,6 +271,42 @@ public class StringQuestions {
         }
 
         return count;
+    }
+
+
+    //At MOST
+    public static int countAtMostKSubStrings(String s, int k) {
+        int count = 0, start = 0, end = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for(; end < s.length(); end++) {
+            char c = s.charAt(end);
+            map.put(c, map.getOrDefault(c, 0) + 1);
+
+            while(map.size() > k) {
+                char lChar = s.charAt(start);
+                int lCount = map.get(lChar) - 1;
+                map.put(lChar, lCount);
+                if(lCount == 0) {
+                    map.remove(lChar);
+                }
+                start++;
+            }
+
+            count += end - start + 1;
+        }
+
+        return count;
+    }
+
+    //Exact
+    public static int countExactKSubString(String s, int k) {
+        return countAtMostKSubStrings(s, k) - countAtMostKSubStrings(s, k - 1);
+    }
+
+    //At least
+    public static int countAtLeastKSubString(String s, int k) {
+        return countAtMostKSubStrings(s, s.length()) - countAtMostKSubStrings(s, k - 1);
     }
 
 }
