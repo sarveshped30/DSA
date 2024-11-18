@@ -20,8 +20,12 @@ public class StringQuestions {
         /*String word = "raaeaedere";
         System.out.println(frequencySort(word));*/
 
-        String atoi = "+-12";
-        System.out.println(myAtoi(atoi));
+        /*String atoi = "+-12";
+        System.out.println(myAtoi(atoi))*/
+
+        //Count subStrings
+        String s = "abc";
+        System.out.println(countSubstrings(s));
 
     }
 
@@ -254,6 +258,18 @@ public class StringQuestions {
         }
 
         return total * sign;
+    }
+
+
+    //Sliding window algorithm to count subString  ## lengthCount(sub strings with incremental lefts and exact same right)
+    public static int countSubstrings(String s) {
+        int count = 0;
+        int start = 0, end = s.length() - 1;
+        for(; start <= end; start++) {
+            count += (end - start) + 1;
+        }
+
+        return count;
     }
 
 }
