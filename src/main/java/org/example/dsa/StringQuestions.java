@@ -1,5 +1,6 @@
 package org.example.dsa;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
@@ -24,9 +25,12 @@ public class StringQuestions {
         System.out.println(myAtoi(atoi))*/
 
         //Count subStrings
-        String s = "abc";
+        /*String s = "abc";
         String e = "pqpqs";
-        System.out.println(countExactKSubString(e, 2));
+        System.out.println(countExactKSubString(e, 2));*/
+
+        String s = "cbbd";
+        System.out.println(longestPalindrome(s));
 
     }
 
@@ -308,5 +312,33 @@ public class StringQuestions {
     public static int countAtLeastKSubString(String s, int k) {
         return countAtMostKSubStrings(s, s.length()) - countAtMostKSubStrings(s, k - 1);
     }
+
+    public static String longestPalindrome(String s) {
+        int start = 0, end = 0;
+        for(int i = 0; i < s.length(); i++) {
+            int len1 = expandFromCenter(s, i, i);       // For single pair (odd length)
+            int len2 = expandFromCenter(s, i, i+1);     // For double pair (even length)
+            int length = Math.max(len1, len2);
+
+            if(length > end - start) {
+                //As i is at center we can easily calculate start and end index
+                // start = half-length to the left of i
+                // end = half-length to right of i
+                start = i - (length - 1) / 2;       // length - 1 because when we divide even num by 2 we get (left center) && for odd (center - 1)
+                end = i + length / 2;
+            }
+        }
+        return s.substring(start, end + 1);
+    }
+
+    public static int expandFromCenter(String s, int left, int right) {
+        while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+        }
+        return right - left - 1;
+    }
+
+
 
 }
