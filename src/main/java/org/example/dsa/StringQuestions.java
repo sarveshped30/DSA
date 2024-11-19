@@ -33,7 +33,7 @@ public class StringQuestions {
         System.out.println(longestPalindrome(s));*/
 
         String s = "aabcb";
-        System.out.println(beautySum(s));
+        System.out.println(beautyOfString(s));
 
     }
 
@@ -342,7 +342,7 @@ public class StringQuestions {
         return right - left - 1;
     }
 
-    public static int beautySum(String s) {
+    public static int beautyOfString(String s) {
         int[] arr = new int[26];
 
         for(char c : s.toCharArray()) {
