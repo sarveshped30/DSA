@@ -29,8 +29,11 @@ public class StringQuestions {
         String e = "pqpqs";
         System.out.println(countExactKSubString(e, 2));*/
 
-        String s = "cbbd";
-        System.out.println(longestPalindrome(s));
+        /*String s = "cbbd";
+        System.out.println(longestPalindrome(s));*/
+
+        String s = "aabcb";
+        System.out.println(beautySum(s));
 
     }
 
@@ -337,6 +340,26 @@ public class StringQuestions {
             right++;
         }
         return right - left - 1;
+    }
+
+    public static int beautySum(String s) {
+        int[] arr = new int[26];
+
+        for(char c : s.toCharArray()) {
+            arr[c - 'a']++;
+        }
+
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+
+        for(int a : arr) {
+            if (a == 0) continue;
+
+            if(a > max) max = a;
+            if(a < min) min = a;
+        }
+
+        return max - min;
     }
 
 
