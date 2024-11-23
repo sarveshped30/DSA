@@ -24,6 +24,48 @@ public class LinkedListQuestions {
         node.next = node.next.next;
     }
 
+    DLNode constructDLL(int arr[]) {
+        DLNode dummyHead = new DLNode(0);
+        DLNode prev = dummyHead;
+
+        for(int val: arr) {
+            DLNode current = new DLNode(val);
+            prev.next = current;
+            current.prev = prev;
+            prev = current;
+        }
+
+        DLNode head = dummyHead.next;
+        if(head != null) {
+            head.prev = null;
+        }
+        return head;
+
+    }
+
+    DLNode addNode(DLNode head, int p, int x) {
+        // Your code here
+
+        DLNode current = head;
+        int i = 0;
+        while(i < p) {
+            current = current.next;
+            i++;
+        }
+
+        DLNode node = new DLNode(x);
+        node.prev = current;
+        node.next = current.next;
+
+        current.next = node;
+
+        return head;
+    }
+
+    public static void main(String[] args) {
+
+    }
+
 }
 
 
@@ -36,6 +78,20 @@ class Node {
     }
 
     Node(int data) {
+        this.data = data;
+    }
+}
+
+class DLNode {
+    int data;
+    DLNode next;
+    DLNode prev;
+
+    DLNode() {
+        this.data = 0;
+    }
+
+    DLNode(int data) {
         this.data = data;
     }
 }
