@@ -117,6 +117,22 @@ public class LinkedListQuestions {
         return head;
     }
 
+    static Node middleNode(Node head) {
+        Node slow = head;
+        Node fast = head;
+
+        while(fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        if(fast.next != null && fast.next.next == null) {
+            slow = slow.next;
+        }
+
+        return slow;
+    }
+
     public static void main(String[] args) {
         DLNode node = new DLNode(29);
         DLNode node1 = new DLNode(78);
