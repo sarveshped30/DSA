@@ -62,8 +62,69 @@ public class LinkedListQuestions {
         return head;
     }
 
-    public static void main(String[] args) {
+    static DLNode deleteNode(DLNode head, int x) {
+        DLNode current = head;
+        int i = 1;
 
+        while(i < x) {
+            current = current.next;
+            i++;
+        }
+
+        if(current.prev == null) {
+            head = current.next;
+            head.prev = null;
+        } else if(current.next == null) {
+            current.prev.next = null;
+        } else {
+            DLNode prev = current.prev;
+            DLNode next = current.next;
+            prev.next = next;
+            next.prev = prev;
+        }
+
+
+        return head;
+    }
+
+    static Node reverseSinglyLinkedList(Node head) {
+        Node prev = null;
+        Node current = head;
+
+        while(current != null) {
+            Node nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+
+        return head;
+    }
+
+    static DLNode reverseDLL(DLNode head) {
+        DLNode current = head;
+
+        while(current != null) {
+            DLNode temp = current.next;
+            current.next = current.prev;
+            current.prev = temp;
+            if(temp == null) {
+               head = current;
+            }
+            current = current.prev;
+        }
+
+        return head;
+    }
+
+    public static void main(String[] args) {
+        DLNode node = new DLNode(29);
+        DLNode node1 = new DLNode(78);
+
+        node.next = node1;
+        node1.prev = node;
+
+        deleteNode(node, 1);
     }
 
 }
@@ -94,4 +155,5 @@ class DLNode {
     DLNode(int data) {
         this.data = data;
     }
+
 }
