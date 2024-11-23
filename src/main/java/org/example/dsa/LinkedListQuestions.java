@@ -95,6 +95,9 @@ public class LinkedListQuestions {
             Node nextNode = current.next;
             current.next = prev;
             prev = current;
+            if(nextNode == null) {
+                head = current;
+            }
             current = nextNode;
         }
 
