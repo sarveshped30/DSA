@@ -173,6 +173,36 @@ public class LinkedListQuestions {
         return false;
     }
 
+    // Function to find the length of a loop in the linked list.
+    public int countNodesInLoop(Node head) {
+        int count = 0;
+        Node slow = head;
+        Node fast = head;
+
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast) {
+                slow = head;
+
+                while(slow != fast) {
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+
+                do {
+                    count++;
+                    fast = fast.next;
+                } while (slow != fast);
+
+                return count;
+            }
+        }
+
+        return count;
+    }
+
     public static void main(String[] args) {
         DLNode node = new DLNode(29);
         DLNode node1 = new DLNode(78);
