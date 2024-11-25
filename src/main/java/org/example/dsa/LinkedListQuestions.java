@@ -203,6 +203,39 @@ public class LinkedListQuestions {
         return count;
     }
 
+    static boolean isPalindrome(Node head) {
+
+        //Find Middle Node
+        Node slow = head;
+        Node fast = head;
+
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        //Second half reversal
+        Node secondHead = slow;
+        Node previosNode = null;
+
+        while (secondHead != null) {
+            Node next = secondHead.next;
+            secondHead.next = previosNode;
+            previosNode = secondHead;
+            secondHead = next;
+        }
+
+        //Compare two LL's
+        while(head != null && previosNode != null) {
+            if(head.data != previosNode.data) return false;
+
+            head = head.next;
+            previosNode = previosNode.next;
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
         DLNode node = new DLNode(29);
         DLNode node1 = new DLNode(78);
