@@ -136,6 +136,47 @@ public class LinkedListQuestions {
         return slow;
     }
 
+    static Node startOfCycle(Node head) {
+        Node slow = head;
+        Node fast = head;
+
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            //Floyd cycle detection algorithm
+            //But does not guarantee that pointers meet at start of cycle
+            //In order to find start of cycle
+            if(slow == fast) {
+                slow = head;        // Slow reset to head
+                while(slow != fast) {
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return slow;
+            }
+        }
+        return null;
+    }
+
+
+    static boolean hasCycle(Node head) {
+        Node slow = head;
+        Node fast = head;
+
+        //Floyd cycle detection algorithm
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static void main(String[] args) {
         DLNode node = new DLNode(29);
         DLNode node1 = new DLNode(78);
