@@ -237,13 +237,70 @@ public class LinkedListQuestions {
     }
 
     public static void main(String[] args) {
-        DLNode node = new DLNode(29);
+        /*DLNode node = new DLNode(29);
         DLNode node1 = new DLNode(78);
 
         node.next = node1;
         node1.prev = node;
 
-        deleteNode(node, 1);
+        deleteNode(node, 1);*/
+
+        //Merge sort
+        Node node = new Node(4);
+        node.next = new Node(2);
+        node.next.next = new Node(1);
+        node.next.next.next = new Node(3);
+
+        sortList(node);
+    }
+
+    public static Node sortList(Node head) {
+        return mergeSort(head);
+    }
+
+    public static Node mergeSort(Node head) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+
+        Node middle = middle(head);
+        Node nextToMiddle = middle.next;
+        middle.next = null;
+
+        Node left = mergeSort(head);
+        Node right = mergeSort(nextToMiddle);
+
+        return merge(left, right);
+    }
+
+    public static Node merge(Node left, Node right) {
+        if(left == null) return right;
+        if(right == null) return left;
+
+        Node result = null;
+        if(left.data <= right.data) {
+            result = left;
+            result.next = merge(left.next, right);
+        } else {
+            result = right;
+            result.next = merge(left, right.next);
+        }
+
+        return result;
+    }
+
+    public static Node middle(Node node) {
+        if(node == null) return node;
+
+        Node slow = node;
+        Node fast = node;
+
+        while(fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
     }
 
 }
