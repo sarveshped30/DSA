@@ -390,6 +390,30 @@ public class LinkedListQuestions {
 
     }
 
+    //Add one to LinkedList (recursion)
+    public Node addOne(Node head) {
+
+        int remainder = add(head);
+
+        if(remainder > 0) {
+            Node node = new Node(remainder);
+            node.next = head;
+            head = node;
+        }
+
+        return head;
+    }
+
+    public int add(Node head) {
+        if(head == null) return 1;
+
+        int remainder = add(head.next);
+
+        int sum = head.data + remainder;
+        head.data = sum % 10;   //if sum is 10 then remainder will be 0
+        return sum / 10;        //if sum is 10, quotient will be 1 else 0
+    }
+
 }
 
 
