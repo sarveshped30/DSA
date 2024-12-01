@@ -303,7 +303,7 @@ public class LinkedListQuestions {
         return slow;
     }
 
-    //Segregate zeros's, one's and two's
+    //Segregate zero's, one's and two's
     static Node segregate(Node head) {
         Node zero = new Node(-1), zeroHead = zero;
         Node one = new Node(-1), oneHead = one;
