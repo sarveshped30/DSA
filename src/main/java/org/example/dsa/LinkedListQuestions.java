@@ -303,6 +303,47 @@ public class LinkedListQuestions {
         return slow;
     }
 
+    //Segregate zeros's, one's and two's
+    static Node segregate(Node head) {
+        Node zero = new Node(-1), zeroHead = zero;
+        Node one = new Node(-1), oneHead = one;
+        Node two = new Node(-1), twoHead = two;
+
+        Node node = head;
+
+        while(node != null) {
+            if(node.data == 0) {
+                Node nextNode = node.next;
+                node.next = null;
+                zero.next = node;
+                zero = zero.next;
+                node = nextNode;
+            } else if (node.data == 1) {
+                Node nextNode = node.next;
+                node.next = null;
+                one.next = node;
+                one = one.next;
+                node = nextNode;
+            } else {
+                Node nextNode = node.next;
+                node.next = null;
+                two.next = node;
+                two = two.next;
+                node = nextNode;
+            }
+        }
+
+        if(oneHead.next != null) {
+            zero.next = oneHead.next;
+            one.next = twoHead.next;
+        } else {
+            zero.next = twoHead.next;
+        }
+
+        return zeroHead.next;
+
+    }
+
 }
 
 
