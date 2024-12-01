@@ -2,6 +2,46 @@ package org.example.dsa;
 
 public class LinkedListQuestions {
 
+    //Understanding of Equals and hashCode is very imp to solve this question
+    public Node getIntersectionNode(Node headA, Node headB) {
+
+        int lengthA = length(headA);
+        int lengthB = length(headB);
+
+        if(lengthA > lengthB) {
+            headA = moveHead(headA, lengthA - lengthB);
+        } else if (lengthB > lengthA) {
+            headB = moveHead(headB, lengthB - lengthA);
+        }
+
+        while(headA != null && headB != null) {
+            if(headA == headB) return headA;
+
+            headA = headA.next;
+            headB = headB.next;
+        }
+
+        return null;
+    }
+
+    public Node moveHead(Node head, int count) {
+        while (count > 0) {
+            head = head.next;
+            count--;
+        }
+
+        return head;
+    }
+
+    public int length(Node head) {
+        int count = 0;
+        Node node = head;
+        while(node != null) {
+            count++;
+            node = node.next;
+        }
+        return count;
+    }
 
     public static Node constructLL(int[] arr) {
         Node head = new Node();
@@ -246,12 +286,18 @@ public class LinkedListQuestions {
         deleteNode(node, 1);*/
 
         //Merge sort
-        Node node = new Node(4);
+        /*Node node = new Node(4);
         node.next = new Node(2);
         node.next.next = new Node(1);
         node.next.next.next = new Node(3);
 
-        sortList(node);
+        sortList(node);*/
+
+        Node node1 = new Node(1);
+        Node node2 = new Node(1);
+
+        //default implements checks hashCode
+        System.out.println(node1.equals(node2));
     }
 
     public static Node sortList(Node head) {
