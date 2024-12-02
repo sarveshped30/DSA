@@ -24,6 +24,34 @@ public class LinkedListQuestions {
         return null;
     }
 
+    //Doubly LinkedList delete all occurrence
+    static DLNode deleteAllOccurOfX(DLNode head, int x) {
+        DLNode dummyHead = new DLNode();
+        dummyHead.data = -1;
+        dummyHead.next = head;
+
+        DLNode current = dummyHead.next;
+
+        DLNode prev = dummyHead;
+        while(current != null) {
+            current.prev = prev;
+            if(current.data == x) {
+                current.prev.next = current.next;
+                //prev = current.prev;        //Redundant as current is removed hence prev remains same
+            } else {
+                prev = current;
+            }
+
+            current = current.next;
+        }
+
+        if(dummyHead.next != null) {
+            dummyHead.next.prev = null;
+        }
+
+        return dummyHead.next;
+    }
+
     public Node moveHead(Node head, int count) {
         while (count > 0) {
             head = head.next;

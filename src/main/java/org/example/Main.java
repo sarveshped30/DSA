@@ -133,8 +133,8 @@ public class Main {
         String str1 = "Interviewbit".replaceAll("sdvsghdv","sabdvas");*/
 
         char d = '4';
-        System.out.println(d % 2);
-        System.out.println((int) d);
+        /*System.out.println(d % 2);
+        System.out.println((int) d);*/
 
         //char operations
 
@@ -143,10 +143,10 @@ public class Main {
         //Small Alphabets to small Alphabets
         char evalCaps = 'z' - 32;
         //Char to number
-        int digit = '7' - '0';
+        /*int digit = '7' - '0';
         System.out.println("eval small : " + evalSmall);
         System.out.println("eval caps : " + evalCaps);
-        System.out.println("digit : " + digit);
+        System.out.println("digit : " + digit);*/
 
         /*String flower = "flower";
         System.out.println(flower.substring(0, flower.length()));   // Does not throw out of bound exception because endIndex is exclusive because (n - 1 is valid index);
