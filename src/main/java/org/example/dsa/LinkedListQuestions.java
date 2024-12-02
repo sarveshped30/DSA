@@ -406,6 +406,27 @@ public class LinkedListQuestions {
         return slow;
     }
 
+    DLNode removeDuplicates(DLNode head){
+
+        DLNode current = head;
+
+        while (current != null && current.next != null) {
+            if(current.data == current.next.data) {
+
+                DLNode nextNode = current.next.next;
+                current.next = nextNode;
+
+                if(nextNode != null) {
+                    nextNode.prev = current;
+                }
+            } else {
+                current = current.next;
+            }
+        }
+
+        return head;
+    }
+
     //Segregate zero's, one's and two's
     static Node segregate(Node head) {
         Node zero = new Node(-1), zeroHead = zero;
