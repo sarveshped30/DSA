@@ -1,5 +1,8 @@
 package org.example.dsa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LinkedListQuestions {
 
     //Understanding of Equals and hashCode is very imp to solve this question
@@ -302,6 +305,32 @@ public class LinkedListQuestions {
         }
 
         return true;
+    }
+
+    public static ArrayList<ArrayList<Integer>> findPairsWithGivenSum(int target, DLNode head) {
+        ArrayList<ArrayList<Integer>> pairList = new ArrayList<>();
+
+        DLNode tail = head;
+
+        while(tail.next != null) {
+            tail = tail.next;
+        }
+
+        while (head != null && tail != null && head != tail && tail.next != head) {
+            int sum = head.data + tail.data;
+
+            if(sum > target) {
+                tail = tail.prev;
+            } else if(sum < target) {
+                head = head.next;
+            } else {
+                pairList.add(new ArrayList<Integer>(List.of(head.data, tail.data)));
+                head = head.next;
+                tail = tail.prev;
+            }
+        }
+
+        return pairList;
     }
 
     public static void main(String[] args) {
