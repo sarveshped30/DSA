@@ -427,6 +427,63 @@ public class LinkedListQuestions {
         return head;
     }
 
+    //Hard category question
+    public Node reverseKGroup(Node head, int k) {
+        if(k == 1) return head;
+
+        Node mainHead = null;
+        Node mainTail = null;
+
+        int count = k;
+        Node current = head;
+
+        while(current != null) {
+            Node listTail = current;
+            Node listHead = current;
+            Node prev = null;
+
+            if(validateCount(current, count)) {
+                while(current != null && count > 0) {
+                    Node nextNode = current.next;
+                    current.next = prev;
+                    prev = current;
+                    listHead = current;
+                    current = nextNode;
+
+                    count--;
+                }
+            } else {
+                current = null;
+            }
+
+
+            if(mainHead == null) {
+                mainHead = listHead;
+                mainTail = listTail;
+            } else {
+                mainTail.next = listHead;
+                mainTail = listTail;
+            }
+
+            count = k;
+        }
+
+        return mainHead;
+
+    }
+
+
+    public boolean validateCount(Node head, int k) {
+        Node current = head;
+        int count = 0;
+        while(current != null && count < k) {
+            current = current.next;
+            count++;
+        }
+
+        return count == k;
+    }
+
     //Segregate zero's, one's and two's
     static Node segregate(Node head) {
         Node zero = new Node(-1), zeroHead = zero;
