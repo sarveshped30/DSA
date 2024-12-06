@@ -334,6 +334,8 @@ public class LinkedListQuestions {
     }
 
     public static void main(String[] args) {
+        LinkedListQuestions questions = new LinkedListQuestions();
+
         /*DLNode node = new DLNode(29);
         DLNode node1 = new DLNode(78);
 
@@ -343,18 +345,20 @@ public class LinkedListQuestions {
         deleteNode(node, 1);*/
 
         //Merge sort
-        /*Node node = new Node(4);
-        node.next = new Node(2);
-        node.next.next = new Node(1);
-        node.next.next.next = new Node(3);
+        Node node = new Node(0);
+        node.next = new Node(1);
+        node.next.next = new Node(2);
+        //node.next.next.next = new Node(3);
 
-        sortList(node);*/
+        //sortList(node);
 
-        Node node1 = new Node(1);
+       /* Node node1 = new Node(1);
         Node node2 = new Node(1);
 
         //default implements checks hashCode
-        System.out.println(node1.equals(node2));
+        System.out.println(node1.equals(node2));*/
+
+        questions.rotateRight(node, 4);
     }
 
     public static Node sortList(Node head) {
@@ -482,6 +486,55 @@ public class LinkedListQuestions {
         }
 
         return count == k;
+    }
+
+    public Node rotateRight(Node head, int k) {
+
+        if(head == null || head.next == null || k == 0) {
+            return head;
+        }
+
+        int len = length(head);
+        int rem = k % len;
+        int left = len - rem;
+
+        Node current = head;
+        Node leftTail = null;
+        Node mainHead = null;
+        Node prev = null;
+        while(current != null && left > 0) {
+            Node nextNode = current.next;
+            current.next = prev;
+            if(prev == null){
+                leftTail = current;
+            }
+            prev = current;
+            current = nextNode;
+            left--;
+        }
+
+        mainHead = prev;
+        prev = null;
+        while(current != null) {
+            Node nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+
+        leftTail.next = prev;
+
+        current = mainHead;
+        prev = null;
+        while(current != null) {
+            Node nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+
+
+        return prev;
     }
 
     //Segregate zero's, one's and two's
