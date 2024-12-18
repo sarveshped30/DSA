@@ -48,4 +48,27 @@ public class RecursionQuestions {
         // Apply the sign when recursion ends
         return val;
     }
+
+    //Pow using recursion
+    public double pow(double x, int n) {
+        if(n == Integer.MIN_VALUE) {
+            return 1 / (x * pow(x, -(n + 1)));      // X multiplication for sign (+ or -)
+        }
+
+        if(n == 0) return 1.0;
+        if(n == 1) return x;
+
+        if(n < 0) {
+            return 1 / pow(x, -n);
+        }
+
+        double half = pow(x, n/2);
+
+        return n % 2 == 0 ? half * half : half * half * x;
+    }
+
+    public static void main(String[] args) {
+        RecursionQuestions recursionQuestions = new RecursionQuestions();
+        System.out.println(recursionQuestions.pow(2.00000d, -2));
+    }
 }
