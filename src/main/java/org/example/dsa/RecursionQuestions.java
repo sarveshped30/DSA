@@ -1,5 +1,9 @@
 package org.example.dsa;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+
 public class RecursionQuestions {
 
     public int myAtoi(String s) {
@@ -69,6 +73,30 @@ public class RecursionQuestions {
 
     public static void main(String[] args) {
         RecursionQuestions recursionQuestions = new RecursionQuestions();
-        System.out.println(recursionQuestions.pow(2.00000d, -2));
+        //System.out.println(recursionQuestions.pow(2.00000d, -2));
+
+        //Backtracking
+        System.out.println(recursionQuestions.generateParenthesis(3));
+    }
+
+    public List<String> generateParenthesis(int n) {
+        List<String> result = new ArrayList<>();
+        backtracking(result, "", 0, 0, n);
+        return result;
+    }
+
+    private void backtracking(List<String> result, String str, int open, int close, int noOfParenthesis) {
+        if(str.length() == noOfParenthesis * 2) {
+            result.add(str);
+            return;
+        }
+
+        if(open < noOfParenthesis) {
+            backtracking(result, str + "(", open + 1, close, noOfParenthesis);
+        }
+
+        if(close < open) {
+            backtracking(result, str + ")", open, close + 1, noOfParenthesis);
+        }
     }
 }
