@@ -79,9 +79,15 @@ public class RecursionQuestions {
         //System.out.println(recursionQuestions.generateParenthesis(3));
 
         //Reverse Array using recursion
-        int[] arr = new int[]{1, 2, 3, 4, 5};
+        /*int[] arr = new int[]{1, 2, 3, 4, 5};
         recursionQuestions.reverse(arr);
-        System.out.println(Arrays.toString(arr));
+        System.out.println(Arrays.toString(arr));*/
+
+        //Check Palindrome recursively
+        int[] arr = new int[]{2, 1, 4, 3, 2};
+        int[] arr2 = new int[]{2, 3, 4, 3, 2};
+        int[] arr3 = new int[]{2, 1, 1, 2};
+        System.out.println(recursionQuestions.palindromeCheck(arr3));
     }
 
     public List<String> generateParenthesis(int n) {
@@ -115,5 +121,20 @@ public class RecursionQuestions {
         int element = arr[index];
         reverseArray(arr, index+1, length);
         arr[length - index] = element;
+    }
+
+    public boolean palindromeCheck(int[] arr) {
+        return recursivePalindromeCheck(arr, 0, arr.length - 1);
+    }
+
+    public boolean recursivePalindromeCheck(int[] arr, int index, int length) {
+        if(index > length) return true;
+
+        int element = arr[index];
+        if(recursivePalindromeCheck(arr, index + 1, length)) {
+            return element == arr[length - index];
+        } else {
+            return false;
+        }
     }
 }
