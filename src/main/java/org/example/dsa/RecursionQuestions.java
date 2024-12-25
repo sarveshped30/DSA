@@ -76,7 +76,12 @@ public class RecursionQuestions {
         //System.out.println(recursionQuestions.pow(2.00000d, -2));
 
         //Backtracking
-        System.out.println(recursionQuestions.generateParenthesis(3));
+        //System.out.println(recursionQuestions.generateParenthesis(3));
+
+        //Reverse Array using recursion
+        int[] arr = new int[]{1, 2, 3, 4, 5};
+        recursionQuestions.reverse(arr);
+        System.out.println(Arrays.toString(arr));
     }
 
     public List<String> generateParenthesis(int n) {
@@ -98,5 +103,17 @@ public class RecursionQuestions {
         if(close < open) {
             backtracking(result, str + ")", open, close + 1, noOfParenthesis);
         }
+    }
+
+    public void reverse(int[] arr) {
+        reverseArray(arr, 0, arr.length-1);
+    }
+
+    public void reverseArray(int[] arr, int index, int length) {
+        if (index > length) return;
+
+        int element = arr[index];
+        reverseArray(arr, index+1, length);
+        arr[length - index] = element;
     }
 }
