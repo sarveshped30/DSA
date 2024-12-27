@@ -84,10 +84,15 @@ public class RecursionQuestions {
         System.out.println(Arrays.toString(arr));*/
 
         //Check Palindrome recursively
-        int[] arr = new int[]{2, 1, 4, 3, 2};
+        /*int[] arr = new int[]{2, 1, 4, 3, 2};
         int[] arr2 = new int[]{2, 3, 4, 3, 2};
         int[] arr3 = new int[]{2, 1, 1, 2};
-        System.out.println(recursionQuestions.palindromeCheck(arr3));
+        System.out.println(recursionQuestions.palindromeCheck(arr3));*/
+
+
+        //Print subSequences
+        int[] arr = new int[]{1, 2, 3};
+        System.out.println(recursionQuestions.subsets(arr));
     }
 
     public List<String> generateParenthesis(int n) {
@@ -136,5 +141,27 @@ public class RecursionQuestions {
         } else {
             return false;
         }
+    }
+
+    private final List<List<Integer>> seqList = new ArrayList<>();
+
+    public List<List<Integer>> subsets(int[] nums) {
+        recurse(nums, 0, new ArrayList<>());
+        return seqList;
+    }
+
+    private void recurse(int[] nums, int index, List<Integer> subSet) {
+        if(index == nums.length) {
+            seqList.add(new ArrayList<>(subSet));
+            return;
+        }
+
+        //take
+        subSet.add(nums[index]);
+        recurse(nums, index + 1, subSet);
+
+        //Don't take
+        subSet.removeLast();
+        recurse(nums, index + 1, subSet);
     }
 }
