@@ -1,8 +1,8 @@
 package org.example.dsa;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class RecursionQuestions {
 
@@ -95,7 +95,12 @@ public class RecursionQuestions {
         System.out.println(recursionQuestions.subsets(arr));*/
 
         //Generate binary Strings
-        recursionQuestions.generateBinaryStringOfLength(3);
+        //recursionQuestions.generateBinaryStringOfLength(3);
+
+        //Print all subSequence of string
+        int count = recursionQuestions.printAllSubSequenceOfString("gfg");
+        System.out.println();
+        System.out.println(count);
     }
 
     public List<String> generateParenthesis(int n) {
@@ -199,4 +204,32 @@ public class RecursionQuestions {
             generateBinaryString(result, index + 1, length);
         }
     }
+
+    public int printAllSubSequenceOfString(String str) {
+        int len = str.length();
+        List<Character> result = new ArrayList<>();
+        int index = 0;
+        return generateSubSequence(result, index, len, str);
+    }
+
+    private int generateSubSequence(List<Character> result, int index, int length, String str) {
+        if(index == length) {
+            if(result.isEmpty()) {
+                return 0;
+            } else {
+                System.out.print(result.stream().map(String::valueOf).collect(Collectors.joining()) + " ");
+                return 1;
+            }
+        }
+
+        result.add(str.charAt(index));
+        int left = generateSubSequence(result, index + 1, length, str);
+
+        result.removeLast();
+        int right = generateSubSequence(result, index + 1, length, str);
+
+        return left + right;
+    }
+
+
 }
