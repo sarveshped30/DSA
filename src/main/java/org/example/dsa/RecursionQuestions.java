@@ -91,8 +91,11 @@ public class RecursionQuestions {
 
 
         //Print subSequences
-        int[] arr = new int[]{1, 2, 3};
-        System.out.println(recursionQuestions.subsets(arr));
+        /*int[] arr = new int[]{1, 2, 3};
+        System.out.println(recursionQuestions.subsets(arr));*/
+
+        //Generate binary Strings
+        recursionQuestions.generateBinaryStringOfLength(3);
     }
 
     public List<String> generateParenthesis(int n) {
@@ -163,5 +166,37 @@ public class RecursionQuestions {
         //Don't take
         subSet.removeLast();
         recurse(nums, index + 1, subSet);
+    }
+
+    public void generateBinaryStringOfLength(int n) {
+
+        if(n <= 0) return;
+
+        char[] result = new char[n];
+        result[0] = '0';
+        generateBinaryString(result, 1, n);
+
+        result[0] = '1';
+        generateBinaryString(result, 1, n);
+    }
+
+    private void generateBinaryString(char[] result, int index, int length) {
+        if(index == length) {
+            System.out.print(String.valueOf(result) + " ");
+            return;
+        }
+
+        if(result[index - 1] == '0') {
+            result[index] = '0';    // Take zero / don't take one
+            generateBinaryString(result, index + 1, length);
+            result[index] = '1';    //Take one / don't take zero
+            generateBinaryString(result, index + 1, length);
+        }
+
+        //As we should not allow consecutive one's
+        if(result[index - 1] == '1') {
+            result[index] = '0';
+            generateBinaryString(result, index + 1, length);
+        }
     }
 }
