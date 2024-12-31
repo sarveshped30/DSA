@@ -1,8 +1,10 @@
 package org.example.dsa;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.Set;
 
 public class RecursionQuestions {
 
@@ -98,9 +100,12 @@ public class RecursionQuestions {
         //recursionQuestions.generateBinaryStringOfLength(3);
 
         //Print all subSequence of string
-        int count = recursionQuestions.printAllSubSequenceOfString("gfg");
+        int count = recursionQuestions.printAllSubSequenceOfString("ggg");
         System.out.println();
         System.out.println(count);
+
+        int distinctCount = recursionQuestions.printAllDistinctSubSequenceOfString("ggg");
+        System.out.println(distinctCount);
     }
 
     public List<String> generateParenthesis(int n) {
@@ -229,6 +234,30 @@ public class RecursionQuestions {
         int right = generateSubSequence(result, index + 1, length, str);
 
         return left + right;
+    }
+
+    public int printAllDistinctSubSequenceOfString(String str) {
+        int index = 0;
+        List<Character> result = new ArrayList<>();
+        Set<String> distinctSubSequences = new HashSet<>();
+        generateDistinctSubSequence(result, index, str, distinctSubSequences);
+        return distinctSubSequences.size();
+    }
+
+    private void generateDistinctSubSequence(List<Character> result, int index, String str, Set<String> distinctSubSequences) {
+        if(index == str.length()) {
+            if(!result.isEmpty()) {
+                distinctSubSequences.add(result.stream().map(String::valueOf).collect(Collectors.joining()));
+            }
+            return;
+        }
+
+        result.add(str.charAt(index));
+        generateDistinctSubSequence(result, index + 1, str, distinctSubSequences);
+
+        result.removeLast();
+        generateDistinctSubSequence(result, index + 1, str, distinctSubSequences);
+
     }
 
 
