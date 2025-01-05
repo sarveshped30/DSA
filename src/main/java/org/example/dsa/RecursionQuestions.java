@@ -100,12 +100,20 @@ public class RecursionQuestions {
         //recursionQuestions.generateBinaryStringOfLength(3);
 
         //Print all subSequence of string
-        int count = recursionQuestions.printAllSubSequenceOfString("ggg");
+        /*int count = recursionQuestions.printAllSubSequenceOfString("ggg");
         System.out.println();
         System.out.println(count);
 
         int distinctCount = recursionQuestions.printAllDistinctSubSequenceOfString("ggg");
-        System.out.println(distinctCount);
+        System.out.println(distinctCount);*/
+
+        //Perfect Sum
+        int[] arr = new int[]{0, 10, 0};
+        int[] arr1 = new int[]{5, 2, 3, 10, 6, 8};
+        int[] arr2 = new int[]{2, 5, 1, 4, 3};
+        int[] arr3 = new int[]{5, 7, 8};
+        int[] arr4 = new int[]{35, 2, 8, 22};
+        System.out.println(recursionQuestions.perfectSum(arr, 0));
     }
 
     public List<String> generateParenthesis(int n) {
@@ -257,7 +265,24 @@ public class RecursionQuestions {
 
         result.removeLast();
         generateDistinctSubSequence(result, index + 1, str, distinctSubSequences);
+    }
 
+    public int perfectSum(int[] nums, int target) {
+        return perfectSum(nums, target, 0, 0);
+    }
+
+    private int perfectSum(int[] nums, int target, int sum, int index) {
+        if(index == nums.length) {
+            return sum == target ? 1 : 0;
+        }
+
+        //Take
+        int take = perfectSum(nums, target, sum + nums[index], index + 1);
+
+        //Not take
+        int notTake = perfectSum(nums, target, sum, index + 1);
+
+        return take + notTake;
     }
 
 
