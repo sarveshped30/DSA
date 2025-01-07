@@ -1,10 +1,8 @@
 package org.example;
 
-import org.example.dsa.PriorityQueExample;
 
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 
 public class Main {
@@ -152,6 +150,48 @@ public class Main {
         System.out.println(flower.substring(0, flower.length()));   // Does not throw out of bound exception because endIndex is exclusive because (n - 1 is valid index);
         System.out.println(flower.substring(0, 7));        // Throw IndexOutOfBoundException if greater than length*/
 
+        int val = 5;
+        Optional<Integer> opt = Optional.of(val);
+        System.out.println(opt.get());
+        Optional<Integer> opt1 = opt.map(i -> i * i);
+        System.out.println(opt1.get());
+
+        List<List<Integer>> list = Arrays.asList(
+                Arrays.asList(2, 3, 4),
+                Arrays.asList(5, 6, 7),
+                Arrays.asList(8, 9, 10)
+        );
+
+        List<List<Integer>> transformedList = list.stream().map(arr -> {
+            if(!arr.isEmpty()) {
+                for (int i = 0; i < arr.size(); i++) {
+                    Integer el = arr.get(i);
+                    arr.set(i, el * el);
+                }
+            }
+            return arr;
+        }).toList();
+
+        //FlatMap flattens nested data structure
+        List<Integer> flattenedList = list.stream().flatMap(List::stream).toList();
+        List<Integer> transformedFlattenedList = list.stream().flatMap(arr -> arr.stream().map(i -> i*i)).toList();
+
+        System.out.println(transformedList);
+        System.out.println(flattenedList);
+        System.out.println(transformedFlattenedList);
+
+        Map<String, Map<String, Integer>> nestedMap = new HashMap<>();
+        nestedMap.put("A", Map.of("A1", 1, "A2", 2));
+        nestedMap.put("B", Map.of("B1", 3, "B2", 4));
+
+        Map<String, Integer> map = nestedMap.entrySet().stream().flatMap(m -> m.getValue().entrySet().stream())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        System.out.println(map);
+
+        opt1.orElse(4);     //Return inside element
+        opt.orElseThrow(RuntimeException::new);     //Return inside element or else throws exception
+        opt.orElseThrow();     //Return inside element or else throws no such element found exception
+        opt.orElseGet(() -> 4); //Return value if present or else supplied value;
     }
 
 }
