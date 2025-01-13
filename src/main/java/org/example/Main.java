@@ -2,7 +2,9 @@ package org.example;
 
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class Main {
@@ -150,7 +152,7 @@ public class Main {
         System.out.println(flower.substring(0, flower.length()));   // Does not throw out of bound exception because endIndex is exclusive because (n - 1 is valid index);
         System.out.println(flower.substring(0, 7));        // Throw IndexOutOfBoundException if greater than length*/
 
-        int val = 5;
+        /*int val = 5;
         Optional<Integer> opt = Optional.of(val);
         System.out.println(opt.get());
         Optional<Integer> opt1 = opt.map(i -> i * i);
@@ -191,7 +193,46 @@ public class Main {
         opt1.orElse(4);     //Return inside element
         opt.orElseThrow(RuntimeException::new);     //Return inside element or else throws exception
         opt.orElseThrow();     //Return inside element or else throws no such element found exception
-        opt.orElseGet(() -> 4); //Return value if present or else supplied value;
+        opt.orElseGet(() -> 4); //Return value if present or else supplied value;*/
+
+        int[] inp = new int[]{1, 2, 3, 4, 5};
+        //int[] out = new int[inp.length];
+        /*int o = 0;
+        for(int i : inp) {
+            inp[o++] = Double.valueOf(Math.pow(i, 3)).intValue();
+        }
+
+        System.out.println(Arrays.toString(inp));*/
+        //System.out.println(Arrays.toString(out));
+
+
+        // so basically when we are deling with arrays of primitive in java 8
+        // Arrays.aslIST WONT WORK it will return List<int[]> instead use Array.stream(array).
+       /* List<Integer> res = Arrays.stream(inp)
+                .boxed()
+                .map(x ->Double.valueOf( Math.pow(x, 3)).intValue()).collect(Collectors.toList());
+
+        System.out.println(res);*/
+
+        /*Integer i = 5;
+        Integer j = null;
+
+        int a = 6;
+        //So null cannot be instance of integer
+
+        System.out.println(j instanceof Integer);*/
+
+        Long a = 128L;
+        Long b = 128L;
+
+        System.out.println(a == b);
+
+        String str = null;
+
+        //System.out.println(str.toString());
+
+        //System.out.println();
+
     }
 
 }

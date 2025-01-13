@@ -9,7 +9,7 @@ public class Run {
     public static void main(String[] args) {
 
         //Code for handle two data types
-        Pair<String, Integer> pair = new Pair<>("Sarvesh", 3001);
+        /*Pair<String, Integer> pair = new Pair<>("Sarvesh", 3001);
 
         System.out.println(pair.getLeft());
         System.out.println(pair.getRight());
@@ -35,7 +35,10 @@ public class Run {
 
         for(Map.Entry<Character, Integer> entry : map.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
-        }
+        }*/
+
+        System.out.println(AccountType.SAVINGS_ACCOUNT.getType());
+        System.out.println(AccountType.CURRENT_ACCOUNT.name());         //Name comes from Enums abstract class
     }
 
 
