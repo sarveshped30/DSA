@@ -33,10 +33,39 @@ public class DP {
         return dp[n];
     }*/
 
+    public int findMinEnergyForFrogJump(int[] heights) {
+        int n = heights.length;
+
+        if(n == 0) return 0;        // No energy consumed
+        if(n == 1) return 0;        // No energy consumes as start point
+
+        int prev = 0;       //Single jump energy consumption
+        int prev2 = 0;      // Double jump energy consumption
+
+        for(int i = 1; i < n; i++) {        //Starting from 1st index
+            int singleJump = prev + Math.abs(heights[i-1] - heights[i]);        //Energy on current index for single jump
+            int doubleJump = Integer.MAX_VALUE;
+            if(i > 1) {
+                doubleJump = prev2 + Math.abs(heights[i-2] - heights[i]);       //Energy on current index for double jump
+            }
+
+            int curr = Math.min(singleJump, doubleJump);        //Min energy consumption;
+            prev2 = prev;
+            prev = curr;
+        }
+
+        return prev;
+    }
 
     public static void main(String[] args) {
         DP dp = new DP();
 
+        //Climb stairs problem
         System.out.println(dp.climbStairs(45));
+
+        //Frog jump problem
+        int[] heights = new int[]{30, 10, 60, 10, 60, 50};
+        System.out.println(dp.findMinEnergyForFrogJump(heights));
+
     }
 }
