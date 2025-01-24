@@ -57,15 +57,41 @@ public class DP {
         return prev;
     }
 
+    public int findMinCostForKJumps(int k, int[] heights) {
+        int n = heights.length;
+
+        //Memorization (memorize cost at every index)
+        int[] dp = new int[n];
+
+        //Starting from 1 index as 0th index is the starting point
+        for(int i = 1; i < n; i++) {
+            dp[i] = Integer.MAX_VALUE;      //To avoid doing min func with zero at first
+
+            int j = 1;
+            while(j <= k && i - j >= 0) {
+                int x = dp[i-j] + Math.abs(heights[i] - heights[i-j]);          //Existing cost to new cost at i - j
+                dp[i] = Math.min(dp[i], x);
+                j++;
+            }
+        }
+
+        return dp[n-1];
+    }
+
     public static void main(String[] args) {
         DP dp = new DP();
 
         //Climb stairs problem
-        System.out.println(dp.climbStairs(45));
+        //System.out.println(dp.climbStairs(45));
 
         //Frog jump problem
-        int[] heights = new int[]{30, 10, 60, 10, 60, 50};
-        System.out.println(dp.findMinEnergyForFrogJump(heights));
+        int[] heights = new int[]{30, 10, 60, 10, 60, 50, 10};
+        //System.out.println(dp.findMinEnergyForFrogJump(heights));
+
+        //find cost for k jumps
+        int[] heights2 = new int[]{10, 30, 40, 50, 20};
+        int[] heights3 = new int[]{10, 20, 10};
+        System.out.println(dp.findMinCostForKJumps(3, heights));
 
     }
 }
