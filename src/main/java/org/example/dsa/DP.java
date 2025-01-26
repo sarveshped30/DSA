@@ -126,6 +126,24 @@ public class DP {
         return prev;
     }
 
+    //House robber 2  (circular house's problem)
+    public int houseRobbery2(int[] arr) {
+        if(arr.length == 0) return 0;
+
+        if(arr.length == 1) return arr[0];
+
+        int[] firstExArray = Arrays.copyOfRange(arr, 1, arr.length);
+
+        int[] lastExArray = Arrays.copyOfRange(arr, 0, arr.length - 1);
+
+        int max1 = optimizedHouseRobbery(firstExArray);
+        int max2 = optimizedHouseRobbery(lastExArray);
+
+        return Math.max(max1, max2);
+    }
+
+
+
     public static void main(String[] args) {
         DP dp = new DP();
 
@@ -144,6 +162,11 @@ public class DP {
         //house robber
         int[] house = new int[]{2, 1, 1, 2};
         System.out.println(dp.optimizedHouseRobbery(house));
+
+        //house robber II (circular arranged house's)
+        int[] c_house = new int[]{2, 3, 2};
+        int[] c_house1 = new int[]{1, 2, 3, 1};
+        System.out.println(dp.houseRobbery2(c_house1));
 
     }
 }
