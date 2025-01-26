@@ -103,6 +103,29 @@ public class DP {
         return dp[n - 1];
     }
 
+    public int optimizedHouseRobbery(int[] arr) {
+        int n = arr.length;
+
+        int prev = arr[0];
+        int prev2 = 0;
+
+        for(int i = 1; i < n; i++) {
+            int pick = arr[i];
+
+            if(i > 1) {
+                pick += prev2;
+            }
+
+            int notPick = prev;
+
+            int curr = Math.max(pick, notPick);
+            prev2 = prev;
+            prev = curr;
+        }
+
+        return prev;
+    }
+
     public static void main(String[] args) {
         DP dp = new DP();
 
@@ -120,7 +143,7 @@ public class DP {
 
         //house robber
         int[] house = new int[]{2, 1, 1, 2};
-        System.out.println(dp.maxCashRobbed(house));
+        System.out.println(dp.optimizedHouseRobbery(house));
 
     }
 }
