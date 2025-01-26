@@ -78,6 +78,31 @@ public class DP {
         return dp[n-1];
     }
 
+    //house robber Problem with no adjacent house robs
+    //Memorization and tabulation
+    public int maxCashRobbed(int[] arr) {
+        int n = arr.length;
+
+        if(n == 0) return 0;
+
+        int[] dp = new int[n];
+        dp[0] = arr[0];
+
+        for(int i = 1; i < n; i++) {
+            int pick = arr[i];
+
+            if(i > 1) {
+                pick += dp[i - 2];        //No adjacent so i - 2 + current element val
+            }
+
+            int notPick = dp[i - 1];            // No pick so 0 + prev cumulated value
+
+            dp[i] = Math.max(pick, notPick);    //Max of both subsequence
+        }
+
+        return dp[n - 1];
+    }
+
     public static void main(String[] args) {
         DP dp = new DP();
 
@@ -92,6 +117,10 @@ public class DP {
         int[] heights2 = new int[]{10, 30, 40, 50, 20};
         int[] heights3 = new int[]{10, 20, 10};
         System.out.println(dp.findMinCostForKJumps(3, heights));
+
+        //house robber
+        int[] house = new int[]{2, 1, 1, 2};
+        System.out.println(dp.maxCashRobbed(house));
 
     }
 }
