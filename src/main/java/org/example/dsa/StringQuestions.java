@@ -32,8 +32,11 @@ public class StringQuestions {
         /*String s = "cbbd";
         System.out.println(longestPalindrome(s));*/
 
-        String s = "aabcb";
-        System.out.println(beautyOfString(s));
+        //String s = "aabcb";
+        //System.out.println(beautyOfString(s));
+
+        String s = "gsa##ahed#sqa";
+        System.out.println(removePrev_and_hashtag(s));
 
     }
 
@@ -362,6 +365,22 @@ public class StringQuestions {
         return max - min;
     }
 
+    //Remove '#' and previous char of '#'
+    public static String removePrev_and_hashtag(String s) {
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = 0; i < s.length() - 1; i++) {
+            if(s.charAt(i) != '#' && s.charAt(i + 1) != '#') {
+                sb.append(s.charAt(i));
+            }
+        }
+
+        if(s.charAt(s.length() - 1) != '#') {
+            sb.append(s.charAt(s.length() - 1));
+        }
+
+        return sb.toString();
+    }
 
 
 }
