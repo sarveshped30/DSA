@@ -54,6 +54,35 @@ public class Graphs {
         }
     }
 
+    public int findCircleNum(int[][] isConnected) {
+        int n = isConnected.length;
+       boolean[] visited = new boolean[n];
+       int count = 0;
+
+        /** Using dfs visiting every connected city and mark visited
+         * so once in-countered after wards in below loop don't increment count, as it already belongs to
+         * a province
+         */
+       for(int i = 0; i < n; i++) {
+           //Do dfs for un-visited city and increment count
+           if(!visited[i]) {
+               dfsForProvince(visited, isConnected, i);
+               count++;
+           }
+       }
+
+       return count;
+    }
+
+    public void dfsForProvince(boolean[] visited, int[][] isConnected, int city) {
+        visited[city] = true;
+        for(int j = 0; j < isConnected.length; j++) {
+            if(isConnected[city][j] == 1 && !visited[j]) {
+                dfsForProvince(visited, isConnected, j);
+            }
+        }
+    }
+
     public static void main(String args[]) {
 
         ArrayList < ArrayList < Integer >> adj = new ArrayList < > ();
@@ -92,5 +121,11 @@ public class Graphs {
         for(int i = 0;i<n1;i++) {
             System.out.print(ans1.get(i)+" ");
         }
+
+        System.out.print("\n");
+        //Count Number of provinces
+        int[][] isConnected = new int[][]{{1, 1, 0}, {1, 1, 0}, {0, 0, 1}};
+        int[][] isConnected2 = new int[][]{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+        System.out.println("number of provinces are :: " + gp.findCircleNum(isConnected2));
     }
 }
