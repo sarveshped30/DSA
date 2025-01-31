@@ -59,14 +59,15 @@ public class Graphs {
        boolean[] visited = new boolean[n];
        int count = 0;
 
-        /** Using dfs visiting every connected city and mark visited
+        /** Using dfs/bfs visiting every connected city and mark visited
          * so once in-countered after wards in below loop don't increment count, as it already belongs to
          * a province
          */
        for(int i = 0; i < n; i++) {
            //Do dfs for un-visited city and increment count
            if(!visited[i]) {
-               dfsForProvince(visited, isConnected, i);
+               //dfsForProvince(visited, isConnected, i);       //Using DFS technique
+               bfsForProvince(visited, isConnected, i);         //Using BFS technique
                count++;
            }
        }
@@ -74,11 +75,27 @@ public class Graphs {
        return count;
     }
 
-    public void dfsForProvince(boolean[] visited, int[][] isConnected, int city) {
+    private void dfsForProvince(boolean[] visited, int[][] isConnected, int city) {
         visited[city] = true;
         for(int j = 0; j < isConnected.length; j++) {
             if(isConnected[city][j] == 1 && !visited[j]) {
                 dfsForProvince(visited, isConnected, j);
+            }
+        }
+    }
+
+    private void bfsForProvince(boolean[] visited, int[][] isConnected, int city) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(city);
+
+        while(!queue.isEmpty()) {
+            int val = queue.poll();
+            visited[val] = true;
+
+            for(int i = 0; i < isConnected.length; i++) {
+                if(isConnected[val][i] == 1 && !visited[i]) {
+                    queue.offer(i);
+                }
             }
         }
     }
@@ -126,6 +143,6 @@ public class Graphs {
         //Count Number of provinces
         int[][] isConnected = new int[][]{{1, 1, 0}, {1, 1, 0}, {0, 0, 1}};
         int[][] isConnected2 = new int[][]{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
-        System.out.println("number of provinces are :: " + gp.findCircleNum(isConnected2));
+        System.out.println("number of provinces are :: " + gp.findCircleNum(isConnected));
     }
 }
