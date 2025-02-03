@@ -106,7 +106,6 @@ public class Graphs {
      * @param grid
      * @return minutes to rot all oranges
      */
-
     public int orangesRotting(int[][] grid) {
         if(grid == null || grid.length == 0) {
             return -1;
@@ -118,8 +117,10 @@ public class Graphs {
         int freshOranges = 0;
         int minutes = 0;
 
+        //Queue for BFS
         Queue<int[]> queue = new LinkedList<>();
 
+        //Adding all rotten oranges to queue and maintaining count for fresh oranges
         for(int i = 0; i < rows; i++) {
             for(int j = 0; j < cols; j++) {
                 if(grid[i][j] == 2) {
@@ -130,30 +131,37 @@ public class Graphs {
             }
         }
 
+        /** Four direction of rotting Right (0, 1) (row = +0, column = +1), left (0, -1) (row = +0, column = -1)
+         * , Down (1, 0) (row = +1, column = +0) , Up (-1, 0) (row = -1, column = +0)
+         */
         int[][] directions = new int[][] {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+        //BFS Algo
         while(!queue.isEmpty() && freshOranges > 0) {
             int size = queue.size();
-            minutes++;
+            minutes++;      //Incrementing level++
 
+            //Polling all the rotten oranges and spreading in 4 directions
             for(int i = 0; i < size; i++) {
                 int[] rotten = queue.poll();
 
+                //Moving in Four directions
                 for(int[] direction : directions) {
                     int x = rotten[0] + direction[0];
                     int y = rotten[1] + direction[1];
 
+                    //checking for corner cases and if fresh orange then add to queue
                     if(x < rows && x >= 0 && y < cols && y >= 0 && grid[x][y] == 1) {
                         grid[x][y] = 2;
                         queue.offer(new int[]{x, y});
-                        freshOranges--;
+                        freshOranges--;     //Decrementing freshOrange
                     }
                 }
             }
 
-
         }
 
-        return freshOranges == 0 ? minutes : -1;
+        return freshOranges == 0 ? minutes : -1;        //If No fresh orange left return Minutes or else -1
     }
 
     public static void main(String args[]) {
