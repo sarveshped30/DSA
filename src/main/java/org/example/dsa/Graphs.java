@@ -100,6 +100,62 @@ public class Graphs {
         }
     }
 
+    /** Fresh Oranges  =  1
+     *  Rotten Oranges = 2
+     *  Empty cell =  0
+     * @param grid
+     * @return minutes to rot all oranges
+     */
+
+    public int orangesRotting(int[][] grid) {
+        if(grid == null || grid.length == 0) {
+            return -1;
+        }
+
+        int rows = grid.length;
+        int cols = grid[0].length;
+
+        int freshOranges = 0;
+        int minutes = 0;
+
+        Queue<int[]> queue = new LinkedList<>();
+
+        for(int i = 0; i < rows; i++) {
+            for(int j = 0; j < cols; j++) {
+                if(grid[i][j] == 2) {
+                    queue.offer(new int[]{i, j});
+                } else if(grid[i][j] == 1) {
+                    freshOranges++;
+                }
+            }
+        }
+
+        int[][] directions = new int[][] {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        while(!queue.isEmpty() && freshOranges > 0) {
+            int size = queue.size();
+            minutes++;
+
+            for(int i = 0; i < size; i++) {
+                int[] rotten = queue.poll();
+
+                for(int[] direction : directions) {
+                    int x = rotten[0] + direction[0];
+                    int y = rotten[1] + direction[1];
+
+                    if(x < rows && x >= 0 && y < cols && y >= 0 && grid[x][y] == 1) {
+                        grid[x][y] = 2;
+                        queue.offer(new int[]{x, y});
+                        freshOranges--;
+                    }
+                }
+            }
+
+
+        }
+
+        return freshOranges == 0 ? minutes : -1;
+    }
+
     public static void main(String args[]) {
 
         ArrayList < ArrayList < Integer >> adj = new ArrayList < > ();
@@ -144,5 +200,13 @@ public class Graphs {
         int[][] isConnected = new int[][]{{1, 1, 0}, {1, 1, 0}, {0, 0, 1}};
         int[][] isConnected2 = new int[][]{{1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
         System.out.println("number of provinces are :: " + gp.findCircleNum(isConnected));
+
+
+        //Rotten Oranges Problem
+        int[][] orangesGrid1 = new int[][]{{2, 1, 1}, {0, 1, 1}, {1, 0, 1}};
+        int[][] orangesGrid2 = new int[][]{{2, 1, 1}, {1, 1, 0}, {0, 1, 1}};
+        int[][] orangesGrid3 = new int[][]{{0, 2}};
+        System.out.println("Rotten oranges minutes :: " + gp.orangesRotting(orangesGrid3));
+
     }
 }
