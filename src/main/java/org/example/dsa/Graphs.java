@@ -105,6 +105,9 @@ public class Graphs {
      *  Empty cell =  0
      * @param grid
      * @return minutes to rot all oranges
+     *
+     * time complexity = O(m x n)
+     * space complexity = O(m x n)
      */
     public int orangesRotting(int[][] grid) {
         if(grid == null || grid.length == 0) {
