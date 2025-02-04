@@ -167,7 +167,15 @@ public class Graphs {
         return freshOranges == 0 ? minutes : -1;        //If No fresh orange left return Minutes or else -1
     }
 
-    //Flood Fill with BFS
+    /** Flood Fill with BFS
+     * time complexity = O(n * m)
+     * space complexity = O(n * m)
+     * @param image
+     * @param sr
+     * @param sc
+     * @param color
+     * @return
+     */
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
         int ogColor = image[sr][sc];
 
