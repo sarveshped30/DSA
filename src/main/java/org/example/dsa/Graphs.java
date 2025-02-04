@@ -167,6 +167,43 @@ public class Graphs {
         return freshOranges == 0 ? minutes : -1;        //If No fresh orange left return Minutes or else -1
     }
 
+    //Flood Fill with BFS
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int ogColor = image[sr][sc];
+
+        if(ogColor == color) {
+            return image;
+        }
+
+        int rows = image.length;
+        int cols = image[0].length;
+
+        Queue<int[]> queue = new LinkedList<>();
+        queue.offer(new int[]{sr, sc});
+
+        while(!queue.isEmpty()) {
+            int size = queue.size();
+
+            for(int i = 0; i < size; i++) {
+                int[] curr = queue.poll();          //Return and remove
+                image[curr[0]][curr[1]] = color;
+
+                int[][] directions = new int[][] {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+                for(int[] direction : directions) {
+                    int x = curr[0] + direction[0];
+                    int y = curr[1] + direction[1];
+
+                    if(x < rows && x >= 0 && y < cols && y >= 0 && image[x][y] == ogColor) {
+                        image[x][y] = color;
+                        queue.offer(new int[]{x, y});
+                    }
+                }
+            }
+        }
+
+        return image;
+    }
+
     public static void main(String args[]) {
 
         ArrayList < ArrayList < Integer >> adj = new ArrayList < > ();
@@ -218,6 +255,11 @@ public class Graphs {
         int[][] orangesGrid2 = new int[][]{{2, 1, 1}, {1, 1, 0}, {0, 1, 1}};
         int[][] orangesGrid3 = new int[][]{{0, 2}};
         System.out.println("Rotten oranges minutes :: " + gp.orangesRotting(orangesGrid3));
+
+        //Flood Fill
+        int[][] image = new int[][]{{1, 1, 1}, {1, 1, 0}, {1, 0, 1}};
+        int[][] image1 = new int[][]{{0, 0, 0}, {0, 0, 0}};
+        System.out.println("Modified image :: " + Arrays.deepToString(gp.floodFill(image1, 0, 0, 1)));
 
     }
 }
