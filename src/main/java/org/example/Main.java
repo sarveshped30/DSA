@@ -214,24 +214,48 @@ public class Main {
 
         System.out.println(res);*/
 
-        /*Integer i = 5;
+        Integer i = 5;
         Integer j = null;
 
-        int a = 6;
+        //int a = j;
         //So null cannot be instance of integer
 
-        System.out.println(j instanceof Integer);*/
+        //System.out.println(j instanceof Integer);
 
-        Long a = 128L;
+        //Long a = 128L;
         Long b = 128L;
 
-        System.out.println(a == b);
+        //System.out.println(a == b);
 
         String str = null;
 
         //System.out.println(str.toString());
 
         //System.out.println();
+
+        // 1. ArrayList maintains insertion order
+        List<String> arrayList = new ArrayList<>();
+        arrayList.add("Apple");
+        arrayList.add("Banana");
+        arrayList.add("Cherry");
+
+        System.out.println("ArrayList elements in insertion order: " + arrayList);
+
+        // 2. HashMap does NOT maintain insertion order
+        Map<Integer, String> hashMap = new HashMap<>();
+        hashMap.put(3, "Three");
+        hashMap.put(1, "One");
+        hashMap.put(2, "Two");
+
+        System.out.println("HashMap elements (unordered): " + hashMap);
+
+        // 3. LinkedHashMap maintains insertion order
+        Map<Integer, String> linkedHashMap = new LinkedHashMap<>();
+        linkedHashMap.put(3, "Three");
+        linkedHashMap.put(1, "One");
+        linkedHashMap.put(2, "Two");
+
+        System.out.println("LinkedHashMap elements in insertion order: " + linkedHashMap);
 
     }
 

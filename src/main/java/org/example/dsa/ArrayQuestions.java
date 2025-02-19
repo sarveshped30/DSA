@@ -99,8 +99,31 @@ public class ArrayQuestions {
 
         int[] nums = new int[]{1, 2, 8, 10, 11, 12, 19};
         //System.out.println(findFloor(nums, 0));
-        System.out.println(Arrays.toString(getFloorAndCiel(nums, 7)));
+        //System.out.println(Arrays.toString(getFloorAndCiel(nums, 7)));
 
+        int[] nums2 = new int[]{1, 1, 1, 2, 5, 5, 7, 7, 8, 9, 9, 9};
+        //System.out.println(Arrays.toString(removeDuplicates(nums2)));
+
+        int[] nums3 = new int[]{1, 0, 2, 3, 2, 0, 0, 4, 5, 1};
+        System.out.println(Arrays.toString(moveZerosToLast(nums3)));
+
+    }
+
+    public static int[] moveZerosToLast(int[] nums) {
+        int x = 0;
+
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] != 0) {
+                nums[x] = nums[i];
+                x++;
+            }
+        }
+
+        while(x < nums.length) {
+            nums[x++] = 0;
+        }
+
+        return nums;
     }
 
 
@@ -768,5 +791,33 @@ public class ArrayQuestions {
 
         return list.stream().mapToInt(x -> x).toArray();
     }
+
+    //Array is sorted
+    public static int[] removeDuplicates(int[] nums) {
+
+        if(nums == null || nums.length == 0 || nums.length == 1) return nums;
+
+        int add = 0;
+        int trav = 0;
+
+        while (trav < nums.length) {
+
+            while(trav < nums.length - 1 && nums[trav] == nums[trav + 1]) {
+                trav++;
+            }
+
+            nums[add] = nums[trav];
+            add++;
+            trav++;
+        }
+
+        while(add < nums.length) {
+            nums[add++] = 0;
+        }
+
+        return nums;
+    }
+
+
 
 }
