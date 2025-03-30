@@ -95,7 +95,7 @@ public class Streams {
         List<String> words3 = Arrays.asList("level", "world", "radar", "java");
         Map<Boolean, List<String>> partitioned = words3.stream()
                 .collect(Collectors.partitioningBy(word ->
-                        word.equals(new StringBuilder(word).reverse().toString())));
+                        word.contentEquals(new StringBuilder(word).reverse())));
         System.out.println(partitioned);
 
         //17. Find all employees earning more than 50,000 and sort them by name:

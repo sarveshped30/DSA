@@ -1,6 +1,8 @@
 package org.example.dsa;
 
 import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -77,6 +79,14 @@ public class Stream {
                 .collect(Collectors.groupingBy(c -> c, Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
     }
 
+    public int sum(List<Integer> arr) {
+        return arr.stream().collect(Collectors.summingInt(Integer::intValue));
+    }
+
+    public int sumv2(List<Integer> arr) {
+        return arr.stream().mapToInt(Integer::intValue).sum();
+    }
+
 
 
 
@@ -103,5 +113,115 @@ public class Stream {
         System.out.println(s.freqCharsV2(input));
 
 
+        //Question a wissen tech round3, from sorted array trim duplicates more than 3
+        ArrayList<Integer> list = new ArrayList<>();
+
+        int[] arr1 = {1, 2, 2, 2, 3, 4, 4, 4, 4, 5, 7, 7, 7, 7, 7};
+
+        IntStream.of(arr1).boxed().collect(Collectors.groupingBy(a -> a, Collectors.counting()))
+                .entrySet().stream()
+                .forEach(e -> {
+                    long v = e.getValue();
+                    if(v > 3) {
+                        v = 3;
+                    }
+
+                    for(int i = 0; i < v; i++) {
+                        list.add(e.getKey());
+                    }
+                });
+
+        System.out.println(list);
+
+        /*int[] arrr = {1, 2, 3, 4};
+        char[] charr = {'q', 'e'};
+
+        java.util.stream.Stream.of(charr);*/
+
+/*        List<int[]> arr = new ArrayList<>();
+
+        arr.add(new int[]{1, 2});
+        arr.add(new int[]{1, 2, 4});
+        arr.add(new int[]{1, 2, 3});*/
+
+
     }
+
+    //Write a Java program to calculate the average of a list of integers using streams.
+    public double average(List<Integer> nums) {
+        return nums.stream().mapToDouble(a -> a).average().orElse(0.0D);
+    }
+
+    //Write a Java program to convert a list of strings to uppercase or lowercase using streams.
+    public List<String> uppercaseV2(List<String> strs) {
+        return strs.stream().map(String::toUpperCase).collect(Collectors.toList());
+    }
+
+    //Write a Java program to remove all duplicate elements from a list using streams.
+    public List<Integer> removeDuplicates(List<Integer> nums) {
+        return nums.stream().distinct().collect(Collectors.toList());
+    }
+
+    //Write a Java program to count the number of strings in a list that start with a specific letter using streams.
+    public long countStartingWith(List<String> strs, String prefix) {
+        return strs.stream().filter(i -> i.startsWith(prefix)).count();
+    }
+
+    //Write a Java program to sort a list of strings in alphabetical order, ascending and descending using streams.
+    public List<String> sortListAsc(List<String> strs) {
+        return strs.stream().sorted().collect(Collectors.toList());
+    }
+
+    public List<String> sortListDesc(List<String> strs) {
+        return strs.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+    }
+
+    //Write a Java program to find the maximum and minimum values in a list of integers using streams.
+    public Integer minV2(List<Integer> nums) {
+        return nums.stream().sorted().findFirst().orElseThrow(() -> new NoSuchElementException("No minimum element found.."));
+    }
+
+    public Integer minV3(List<Integer> nums) {
+        return nums.stream().reduce(Integer.MAX_VALUE, Integer::min);
+    }
+
+    public Integer minV4(List<Integer> nums) {
+        return nums.stream().min(Integer::compareTo).orElseThrow(() -> new NoSuchElementException("No minimum element found.."));
+    }
+
+    public Integer minV5(List<Integer> nums) {
+        return nums.stream().mapToInt(a -> a).min().orElseThrow(() -> new NoSuchElementException("No minimum element found.."));
+    }
+
+    public Integer maxV2(List<Integer> nums) {
+        return nums.stream().sorted(Comparator.reverseOrder()).findFirst().orElseThrow(() -> new NoSuchElementException("No maximum element found.."));
+    }
+
+    public Integer maxV3(List<Integer> nums) {
+        return nums.stream().reduce(Integer.MIN_VALUE, Integer::max);
+    }
+
+    public Integer maxV4(List<Integer> nums) {
+        return nums.stream().max(Integer::compareTo).orElseThrow(() -> new NoSuchElementException("No maximum element found.."));
+    }
+
+    public Integer maxV5(List<Integer> nums) {
+        return nums.stream().mapToInt(a -> a).max().orElseThrow(() -> new NoSuchElementException("No maximum element found.."));
+    }
+
+
+    //Write a Java program to find the second smallest and largest elements in a list of integers using streams.
+    public Integer secondLargestV2(List<Integer> nums) {
+        return nums.stream().sorted(Comparator.reverseOrder()).skip(1).findFirst().orElseThrow(() -> new NoSuchElementException("No secondLargest element found.."));
+    }
+
+    //Map<Employee, Department> in java, sort the map by Department using java 8 streams
+
+    public Map<String , Integer> sortMap(Map<String, Integer> entries) {
+        return entries.entrySet().stream().sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+    }
+
+
+
 }

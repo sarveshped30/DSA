@@ -107,6 +107,23 @@ public class ArrayQuestions {
         int[] nums3 = new int[]{1, 0, 2, 3, 2, 0, 0, 4, 5, 1};
         System.out.println(Arrays.toString(moveZerosToLast(nums3)));
 
+        /*HashSet<Integer> numSet = new HashSet<>();
+        numSet.add(1);
+        numSet.add(2);
+        numSet.add(3);
+
+        for(int num: numSet) {
+            System.out.println(num);
+        }*/
+
+        int[] arr = {2, -6, -7, 2, 5, 0, -5, -1, 70};
+        System.out.println(Arrays.toString(arr));
+
+        //ArrayQuestions.negativesLeftPositivesRight(arr);
+        ArrayQuestions.negativesLeftPositivesRightV2(arr);
+
+        System.out.println(Arrays.toString(arr));
+
     }
 
     public static int[] moveZerosToLast(int[] nums) {
@@ -816,6 +833,52 @@ public class ArrayQuestions {
         }
 
         return nums;
+    }
+
+    //{2, -6, -7, 2, 5, 0, -5, -1, 70}
+
+    //Two approaches
+
+    //extra space O(n) but reduces time O(n) + O(p) + O(n)
+    public static void negativesLeftPositivesRight(int[] nums) {
+        ArrayList<Integer> positives = new ArrayList<>();
+        ArrayList<Integer> negatives = new ArrayList<>();
+
+        for(int num : nums) {
+            if(num >= 0) {
+                positives.add(num);
+            } else {
+                negatives.add(num);
+            }
+        }
+
+        int p = 0;
+        for(int num : negatives) {
+            nums[p++] = num;
+        }
+
+        for(int num : positives) {
+            nums[p++] = num;
+        }
+    }
+
+    //No extra space O(1) but more time complexity worst case is O(n2)
+    //use of insertion sort algorithm
+    public static void negativesLeftPositivesRightV2(int[] nums) {
+
+        int p = 0;
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] < 0) {
+                int j = i;
+                while (j > p) {
+                    int temp = nums[j];
+                    nums[j] = nums[j - 1];
+                    nums[j - 1] = temp;
+                    j--;
+                }
+                p++;
+            }
+        }
     }
 
 

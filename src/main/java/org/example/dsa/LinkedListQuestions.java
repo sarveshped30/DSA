@@ -95,7 +95,7 @@ public class LinkedListQuestions {
         node.next = node.next.next;
     }
 
-    DLNode constructDLL(int arr[]) {
+    DLNode constructDLL(int[] arr) {
         DLNode dummyHead = new DLNode(0);
         DLNode prev = dummyHead;
 
