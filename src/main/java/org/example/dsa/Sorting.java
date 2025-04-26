@@ -128,6 +128,45 @@ public class Sorting {
         }
     }
 
+    public int[] mergeSort(int[] nums) {
+        if(nums.length <= 1) return nums;
+
+        int mid = nums.length / 2;
+        int[] left = Arrays.copyOfRange(nums, 0, mid);
+        int[] right = Arrays.copyOfRange(nums, mid, nums.length);
+
+        int[] sortedLeft = mergeSort(left);
+        int[] sortedRight = mergeSort(right);
+
+        return merge(sortedLeft, sortedRight);
+    }
+
+    private int[] merge(int[] left, int[] right) {
+        int n1 = left.length;
+        int n2 = right.length;
+        int[] arr = new int[n1 + n2];
+
+        int i = 0, j = 0, n = 0;
+
+        while (i < n1 && j < n2) {
+            if(left[i] < right[j]) {
+                arr[n++] = left[i++];
+            } else {
+                arr[n++] = right[j++];
+            }
+        }
+
+        while (i < n1) {
+            arr[n++] = left[i++];
+        }
+
+        while (j < n2) {
+            arr[n++] = right[j++];
+        }
+
+        return arr;
+    }
+
     public static void main(String[] args) {
         Sorting sort = new Sorting();
         int[] arr = new int[]{4, 7, 2, 8, 3, 5, 22, 6, 7, 7, 1};
@@ -145,7 +184,11 @@ public class Sorting {
         //sort.quickSort(arr, 0, arr.length - 1);
 
         //Merge Sort
-        sort.mergeSort(arr, 0, arr.length - 1);
+        //sort.mergeSort(arr, 0, arr.length - 1);
+
+        //Merge Sort with extra space
+        int[] sortedArray = sort.mergeSort(arr);
+        System.out.println("Sorted Array :: " + Arrays.toString(sortedArray));
 
         System.out.println(Arrays.toString(arr));
 
